@@ -1,7 +1,7 @@
 package com.ashutoshpathak.inventoryservice.service;
 
 import com.ashutoshpathak.inventoryservice.Repository.InventoryRepository;
-import model.Inventory;
+import com.ashutoshpathak.inventoryservice.model.Inventory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,9 +14,12 @@ public class InventoryService {
     InventoryRepository inventoryRepository;
 
     public boolean isInStock(String skuCode, Integer orderQuantity){
-
-        Optional<Inventory> byskuCode = inventoryRepository.findByskuCode(skuCode);
-        return byskuCode.isPresent() && byskuCode.get().getQuantity() >= orderQuantity;
-
+        Optional<Inventory> bySkuCode = inventoryRepository.findBySkuCode(skuCode);
+        return bySkuCode.isPresent() && bySkuCode.get().getQuantity() >= orderQuantity;
     }
+
+    public boolean isInStock(String skuCode){
+        return inventoryRepository.findBySkuCode(skuCode).isPresent();
+    }
+
 }
